@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Arrow Functions</title>
+</head>
+<body>
+
+  <style>
+    .wrap {
+      min-height: 100vh;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+      font-weight: 100;
+      color:white;
+    }
+
+    .box {
+      background:black url("https://unsplash.it/1500/1500?image=560&blur=0.5") center fixed no-repeat;
+      width:50px;
+      height:50px;
+      padding:50px;
+      transition: width 0.2s, height 0.6s;
+      position: relative;
+    }
+
+    .box.opening {
+      width:500px;
+      height:500px;
+    }
+
+    .box h2 {
+      position: absolute;
+      width:100%;
+      font-size: 100px;
+      transform:translateX(-200%);
+      transition: all 0.5s;
+      top:0;
+    }
+
+    .box p {
+      position: absolute;
+      width:100%;
+      transform:translateX(200%);
+      transition: all 0.5s;
+      bottom:0;
+    }
+
+    .box.open > * {
+      transform:translateX(0%);
+    }
+  </style>
+
+  <div class="wrap">
+    <div class="box">
+      <h2>Hello there!</h2>
+      <p class="social">@fromLora</p>
+    </div>
+  </div>
+
+  <script>
+      const box = document.querySelector('.box')
+      box.addEventListener('click', function() {
+          let first = 'opening'
+          let second = 'open'
+
+          if(this.classList.contains(first)) {
+              [first, second] = [second, first]
+          }
+          console.log(this); //look at what we called addEventlistener against - this case is box
+          this.classList.toggle(first); 
+          setTimeout(() => {
+              console.log(this) // we entered a new function and therefore its not bound to anything and will give us window if we use regular function
+              //it's good to use arrow function in this case because it will inherit from parent, which is our code above
+              console.log(this.classList)
+              this.classList.toggle(second)
+          }, 500)
+      })
+      //when we use arrow function, 'this' is not rebound to our function, we get window; it inherits
+      //parents scope, which is window.
+      //but we should use arrow function inside of our code so it can inherit from parent which is bound to this. 
+  </script>
+
+</body>
+</html>
