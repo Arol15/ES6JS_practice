@@ -48,9 +48,10 @@
     const strings = filtered.map(string => string.dataset.time)
         .map(item => {
             const parts = item.split(":").map(part => parseFloat(part))
+            //convert into seconds
             return parts[0]*60 + parts[1]
         })
-
+//takes 2 arguments = function and number and what we start with 
     .reduce((runningTotal, seconds) => runningTotal + seconds, 0)
     
 
